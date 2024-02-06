@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flappy Bird</title>
+  <style>
+    canvas {
+      border: 1px solid #000;
+      display: block;
+      margin: 0 auto;
+      background-image: url('https://images.pexels.com/photos/6721157/pexels-photo-6721157.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); /* Cambia la ruta de tu imagen de fondo */
+      background-size: cover;
+    }
+    #buttons {
+      text-align: center;
+      margin-top: 20px;
+    }
+    #messages {
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2 id="instructions">Usa la barra espaciadora para salvar a Piñi</h2>
+  <canvas id="gameCanvas" width="400" height="600"></canvas>
+  <div id="messages" style="display: none;">
+    <h1>Murio</h1>
+  </div>
+  <div id="buttons">
+    <button id="startButton">Comenzar</button>
+    <button id="retryButton" style="display: none;">Reintentar</button>
+  </div>
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const bird = {
+      x: 50,
+      y: canvas.height / 2,
+      width: 85,
+      height: 55,
+      velocity: 0,
+      gravity: 0.5,
+      jump: -4,
+      image: new Image(),
+      draw: function() {
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+      },
+      flap: function() {
+        this.velocity = this.jump;
+      },
+      update: function() {
+        this.velocity += this.gravity;
+        this.y += this.velocity;
+      }
+    };
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height);
+      bird.draw();
+    }
+
+    function update() {
+      bird.update();
+      // Verificar colisión con el suelo (en este caso, la parte inferior del lienzo)
+      if (bird.y + bird.height > canvas.height) {
+        gameOver();
+      }
+    }
+
+    function gameLoop() {
+      update();
+      draw();
+      requestAnimationFrame(gameLoop);
+    }
+
+    function startGame() {
+      document.getElementById("startButton").style.display = "none";
+      document.getElementById("retryButton").style.display = "none";
+      document.getElementById("messages").style.display = "none";
+      document.getElementById("instructions").style.display = "none";
+      bird.y = canvas.height / 2; // Reiniciar la posición del pájaro
+      bird.velocity = 0; // Reiniciar la velocidad del pájaro
+      gameLoop();
+    }
+
+    function gameOver() {
+      document.getElementById("retryButton").style.display = "block";
+      document.getElementById("messages").style.display = "block";
+    }
+
+    document.getElementById("startButton").addEventListener("click", startGame);
+    document.getElementById("retryButton").addEventListener("click", startGame);
+
+    document.addEventListener("keydown", function(event) {
+      if (event.keyCode === 32 && bird.y > 0) { // Barra espaciadora y el pájaro no está en la parte superior del lienzo
+        bird.flap();
+      }
+    });
+
+    const backgroundImg = new Image();
+    backgroundImg.src = 'https://images.pexels.com/photos/6721157/pexels-photo-6721157.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'; // Cambia la ruta de tu imagen de fondo
+    backgroundImg.onload = function() {
+      // Cargar imagen del pájaro
+      bird.image.src = 'https://scontent.fzal1-1.fna.fbcdn.net/v/t39.30808-6/312426076_424195276567168_1074774800965749587_n.png?_nc_cat=111&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeGgOJ_R-wHpKotyLNrFlhVR4Aa0Q01GjZbgBrRDTUaNlpD2mdhGZJ5nSeQRH9zO5mE&_nc_ohc=IkZjIqCONbUAX9MbiH9&_nc_ht=scontent.fzal1-1.fna&oh=00_AfCns_pwihsu50_t75fXYF7jaG3gH97622G78-ztDc9i-A&oe=65C7BC62'; // Reemplaza esta URL con la ruta de tu imagen de pájaro
+      bird.image.onload = function() {
+        //gameLoop();
+      };
+    };
+  </script>
+</body>
+</html>
