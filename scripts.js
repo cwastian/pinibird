@@ -3,7 +3,7 @@ const ctx = canvas.getContext("2d");
 
 let gameInProgress = false;
 let score = 0;
-const lastScores = []; // Array para almacenar los últimos diez puntajes
+const lastScores = [];
 
 const bird = {
   x: 50,
@@ -64,9 +64,6 @@ function gameLoop() {
 }
 
 function startGame() {
-  //document.getElementById("retryButton").style.display = "none";
-  //document.getElementById("messages").style.display = "none";
-  //document.getElementById("instructions").style.display = "none";
   bird.reset();
   score = 0;
   gameInProgress = true;
@@ -100,9 +97,9 @@ function drawLastScores() {
 
 function updateLastScores(newScore) {
   if (lastScores.length >= 10) {
-    lastScores.pop(); // Eliminar el puntaje más antiguo si ya hay 10 puntajes
+    lastScores.pop();
   }
-  lastScores.unshift(newScore); // Agregar el nuevo puntaje al principio del array
+  lastScores.unshift(newScore);
 }
 
 document.getElementById("retryButton").addEventListener("click", startGame);
@@ -119,17 +116,4 @@ document.addEventListener("keydown", function (event) {
 document.addEventListener("touchstart", function (event) {
   event.preventDefault();
   if (bird.y > 0) {
-    bird.flap();
-    if (!gameInProgress) {
-      startGame();
-    }
-  }
-
-const backgroundImg = new Image();
-backgroundImg.src = "lake.jfif";
-backgroundImg.onload = function () {
-  bird.image.src = "pini.jpg";
-  bird.gameOverImage.src = "grave.jpg";
-  bird.image.onload = function () {};
-  bird.gameOverImage.onload = function () {};
-};
+    bird.flap
