@@ -116,6 +116,15 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
+document.addEventListener("touchstart", function (event) {
+  event.preventDefault();
+  if (bird.y > 0) {
+    bird.flap();
+    if (!gameInProgress) {
+      startGame();
+    }
+  }
+
 const backgroundImg = new Image();
 backgroundImg.src = "lake.jfif";
 backgroundImg.onload = function () {
