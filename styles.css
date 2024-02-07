@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif; /* Establecer una fuente predeterminada */
+  }
+  
+  canvas {
+    display: block;
+    margin: 0 auto;
+    border: 1px solid #000;
+  }
+  
+  #retryButton {
+    display: none; /* Ocultar el botón de reintentar al inicio */
+  }
+  
+  #messages {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  #instructions {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  #score {
+    position: left;
+    top: 20px;
+    right: 20px;
+    font-size: 20px;
+    color: white;
+  }
+  
+  #lastScores {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    font-size: 16px;
+    color: white;
+  }
+  
